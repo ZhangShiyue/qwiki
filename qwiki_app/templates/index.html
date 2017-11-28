@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wikipedia Article Quality Assessment</title>
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+    <style>
+        .qw-portal-download-plugin .qw-portal-title .qw-portal-logo, .qw-portal-search-box, .qw-portal-result {
+            margin-top: 30px
+        }
+        .qw-portal-search-box .form-group {
+            display: inline-block;
+            margin-bottom: 0;
+            vertical-align: middle;
+        }
+        .qw-portal-search-box .btn {
+            display: inline-block;
+        }
+        .qw-portal-result {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container center-block">
+    <div class="row qw-portal-download-plugin">
+        <div class="col-md-12 text-right">
+            <a href="/static/plugin/qwiki_extension.crx">Download Plugin</a>
+        </div>
+    </div>
+    <div class="row qw-portal-title">
+        <div class="col-md-12 text-center">
+            <div class="center-block">
+                <h2>Wikipedia Article Quality Assessment</h2>
+            </div>
+        </div>
+    </div>
+    <div class="row text-center qw-portal-logo">
+        <img src="/static/img/Wikipedia-logo-v2@1.5x.png"/>
+    </div>
+</div>
+<section class="container-fluid">
+<div class="container qw-portal-search-box">
+    <div class="text-center">
+        <form action="/assess/" method="get" class=form-inline" role="search">
+            <div class="form-group">
+                <input type="text" class="form-control input-lg" placeholder="Search" name="atitle">
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        </form>
+    </div>
+</div>
+</section>
+<div class="row text-center qw-portal-result">
+    {% if result %}
+        Title: {{title}}
+        Article Scales: FA, GA, B, C, Start, Stub
+        Article Quality: {{ result }}
+    {% endif %}
+</div>
+<div class="row text-center qw-portal-result">
+    {% if use_time %}
+        Used Time: {{ use_time }} s
+    {% endif %}
+</div>
+</body>
+</html>
